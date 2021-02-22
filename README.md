@@ -16,6 +16,6 @@ This project was led as part of the Master in [Computational Biology and Bioinfo
 ## Authors
 Student: [Jonathan Haab](https://www.linkedin.com/in/jonathan-haab/)
 
-Supervisor: [Dr. Maria Preti](https://miplab.epfl.ch/index.php/people/preti)
+Supervisor: [Dr. Maria Giulia Preti](https://miplab.epfl.ch/index.php/people/preti)
 
 Built on the work of [Alec Flowers, Alexander Glavackij and Janet van der Graaf](https://gitlab.com/aglavac/machine-learning-cs433-p2/-/tree/master)
