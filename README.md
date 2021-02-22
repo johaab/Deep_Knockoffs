@@ -1,10 +1,5 @@
 # Deep Knockoffs for fMRI data
 
-## Authors
-Supervisor: [Dr. Maria Preti](https://miplab.epfl.ch/index.php/people/preti)
-
-Student: [Jonathan Haab](https://www.linkedin.com/in/jonathan-haab/)
-
 ## Project Description
 fMRI is a powerful tool to study the brain and relies on the difference in magnetic properties of arterial and venous blood. Blood-oxygen-level dependent (BOLD) contrast is typically used as a measure of the brain activation level, in other words oxygen-rich blood location indicates active brain regions. By detecting correlations between brain activity and the task performed, one can identify regions linked to critical functions. The relatively weak BOLD response and the presence of noise cause brain mapping to be a challenging task.
 
@@ -16,4 +11,11 @@ The aim of this project is twofold. Firstly, the goal is to deepen the under- st
 Data were provided by ??? and can be downloaded here ???
 
 ## Context
-This project was led as part of the Master in [Computational Biology and Bioinformatics](https://cbb.ethz.ch/) at the [Swiss Federal Institute of Technology in Zurich](https://ethz.ch/en.html) (ETHZ)
+This project was led as part of the Master in [Computational Biology and Bioinformatics](https://cbb.ethz.ch/) at the [Swiss Federal Institute of Technology in Zurich](https://ethz.ch/en.html) (ETHZ).
+
+## Authors
+Student: [Jonathan Haab](https://www.linkedin.com/in/jonathan-haab/)
+
+Supervisor: [Dr. Maria Preti](https://miplab.epfl.ch/index.php/people/preti)
+
+Built on the work of [Alec Flowers, Alexander Glavackij and Janet van der Graaf](https://gitlab.com/aglavac/machine-learning-cs433-p2/-/tree/master)
