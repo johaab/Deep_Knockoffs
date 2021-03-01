@@ -1,0 +1,38 @@
+# ignore data
+data/output/
+data/input/
+# /data/
+
+!/data/.gitkeep
+!/data/output/.gitkeep
+!/data/output/knockoffs/.gitkeep
+!/data/output/img/.gitkeep
+!/data/output/beta/.gitkeep
+
+venv/
+# ignore intellij stuff
+.idea/
+
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+*.pyc
+.vscode/
+.vscode
+*.pickle
+*.pdf
+# deepknockoffs/
+
+#Ignore plot helpers
+PlotGraph/BrainGraphTools/*
+
+# Ignore activations and beta files
+/GLM/betas/*
+/GLM/activations/*
+
+# exception
+!/GLM/betas/.gitkeep
+!/GLM/activations/.gitkeep
+
+# Ignore image folder
+/img/
