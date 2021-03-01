@@ -120,8 +120,6 @@ def do_pre_process(X, max_corr):
     # Cut the dendrogram and define the groups of variables
     groups = spc.cut_tree(linkage, height=d_max).flatten()
     print("Divided " + str(len(groups)) + " variables into " + str(np.max(groups) + 1) + " groups.")
-    linkage = spc.linkage(pdist, method='average')
-    print("Divided " + str(len(groups)) + " variables into " + str(np.max(groups) + 1) + " groups.")
     # Plot group sizes
     _, counts = np.unique(groups, return_counts=True)
     print("Size of largest groups: " + str(np.max(counts)))
