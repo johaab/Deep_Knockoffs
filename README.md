@@ -27,11 +27,11 @@ This project was led as part of the Master in [Computational Biology and Bioinfo
 
 ## Installation guide
 
- 	`code` pip3 install -r requirements.txt
- 	`code` pip3 install fanok
- 	`code` cd deepknockoffs/
- 	`code` pip3 install DeepKnockoffs/
- 	`code` pip3 install torch-two-sample-master/
+ `pip3 install -r requirements.txt
+  pip3 install fanok
+  cd deepknockoffs/
+  pip3 install DeepKnockoffs/
+  pip3 install torch-two-sample-master/`
 
 ## File structure
 Project
