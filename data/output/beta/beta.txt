@@ -1,0 +1,19 @@
+As the naming convention might be confusing at first, here is a more detailed description of what you'll find in this folder.
+
+empirical_sl_betas_tMOTOR.mat
+- contains the second-level betas produced by running two rounds of GLM on the empirical fMRI time courses associated with task MOTOR
+
+empirical_uncorrected_sl_betas_tMOTOR.mat
+- contains the second-level betas selected via uncorrected parametric testing
+
+empirical_corrected_sl_betas_tMOTOR.mat
+- contains the second-level betas selected via corrected parametric testing (using Bonferroni correction)
+
+DeepKO_sl_betas_tMOTOR.mat
+- contains the second-level betas produced by running two rounds of GLM on the surrogate fMRI time courses
+
+DeepKO_uncorrected_sl_betas_tMOTOR.mat
+- contains the second-level betas selected via uncorrected nonparametric testing
+
+DeepKO_corrected_sl_betas_tMOTOR.mat
+- contains the second-level betas selected via corrected nonparametric testing (using Min/Max statistics)
