@@ -36,6 +36,7 @@ class KnockOff(abc.ABC):
 
         self.NAME = None
         self.x_train = None
+        self.x_cluster = None
         self.generator = None
         self.file = None
         self.iters = None
@@ -46,6 +47,9 @@ class KnockOff(abc.ABC):
     def load_fmri(self):
         self.x_train = load.load_fmri(task=self.task)
         self.x_train = self.x_train[self.subject]
+
+    def load_rest_fmri(self):
+        self.x_train = scipy.io.loadmat(f'data/output/beta/rest_state_fMRI_t{self.task}.mat')['beta'][self.subject]
 
     def load_paradigms(self):
         paradigms = load.load_task_paradigms(task=self.task)
@@ -94,7 +98,9 @@ class KnockOff(abc.ABC):
     def transform(self, x=None, iters=100, groups=None, save=False):
         """Build the knockoff"""
         self.iters = iters
+
         x = self.check_data(x, transpose=True)
+
         for i in range(iters):
             knock = self.generate(x)
             xk = self.expand(knock, groups)
@@ -103,7 +109,8 @@ class KnockOff(abc.ABC):
             all_knockoff[i, :, :] = xk
 
         expand_x = self.expand(x, groups)
-        all_knockoff = np.concatenate((np.expand_dims(expand_x, axis=0), all_knockoff), axis=0)
+        #all_knockoff = np.concatenate((np.expand_dims(expand_x, axis=0), all_knockoff), axis=0)
+
         if save:
             self.save_pickle(KNOCK_DIR, self.NAME + '_KO_' + self.file, all_knockoff)
         return all_knockoff
@@ -145,13 +152,13 @@ class KnockOff(abc.ABC):
         return results
 
     def statistic(self, all_knockoff, save=False):
-        """Generates beta-values"""
+        """Generates first-level beta-values"""
         hrf = load.load_hrf_function()
         paradigms = self.load_paradigms()
         all_knockoff = np.swapaxes(all_knockoff, 1, 2)
         _, _, betas, _, _, _ = glm(all_knockoff, paradigms, hrf)
         if save:
-            self.save_mat(BETA_DIR, f"{self.NAME}_KObetas_t{self.task}_s{self.subject}.mat", betas)
+            self.save_mat(BETA_DIR, f"{self.NAME}_betas_t{self.task}_s{self.subject}.mat", betas)
         return betas
 
     def threshold(self, ko_betas, save=False):
@@ -257,7 +264,7 @@ class GaussianKnockOff(KnockOff):
 
     def pre_process(self, max_corr, x=None, save=False):
         self.max_corr = max_corr
-        self.file = f"t{self.task}_s{self.subject}_c{self.max_corr}.pickle"
+        self.file = f"t{self.task}_s{self.subject}.pickle"
 
         x = self.check_data(x)
         self.sigma_hat, self.x_train, self.groups, representatives = do_pre_process(x, self.max_corr)
@@ -306,7 +313,7 @@ class DeepKnockOff(KnockOff):
     ----------
     task : string from ['MOTOR', 'GAMBLING', 'RELATIONAL', 'SOCIAL', 'WM', 'EMOTION', 'LANGUAGE']
         Specific task for which the knockoff is built.
-    subject : int
+    subject : int or string
         Index of the subject for which the knockoff is built.
     params :
         Set of parameters to train the neural network.
@@ -336,29 +343,41 @@ class DeepKnockOff(KnockOff):
 
     """
 
-    def __init__(self, task, subject, params=None):
+    def __init__(self, task, subject=None, params=None):
         super().__init__(task, subject)
         self.params = params
 
         self.NAME = 'DeepKO'
-        self.file = f"{self.NAME}_t{task}_s{subject}"
+
+        self.file = f"t{task}_s{subject}"
+
         self.groups = None
         self.representatives = None
 
-    def pre_process(self, max_corr, save=False):
+    def pre_process(self, max_corr, save=False, rest=False):
         assert self.params is None, 'Params already exists, this would override params.'
 
-        gauss = GaussianKnockOff(self.task, self.subject)
-        gauss.load_fmri()
-        self.groups = gauss.pre_process(max_corr=max_corr, save=True)
-        self.x_train = gauss.x_train
-        corr_g = gauss.fit()
+        self.load_fmri()
+        x = self.check_data()
+        sigma_hat, self.x_train, self.groups, self.representatives = do_pre_process(x, max_corr)
 
-        p = self.x_train.T.shape[1]
-        n = self.x_train.T.shape[0]
+        if save:
+            self.save_pickle(KNOCK_DIR, self.NAME + '_sigma_hat_x_train_' + self.file, (sigma_hat, self.x_train))
+            self.save_pickle(KNOCK_DIR, self.NAME + '_groups_representatives_' + self.file, (self.groups, self.representatives))
+
+        assert sigma_hat is not None, "Sigma Hat cannot be None."
+
+        # Initialize generator of second-order knockoffs
+        second_order = GaussianKnockoffs(sigma_hat, mu=np.zeros((sigma_hat.shape[0])), method="sdp")
+        # Measure pairwise second-order knockoff correlations
+        corr_g = (np.diag(sigma_hat) - np.diag(second_order.Ds)) / np.diag(sigma_hat)
+
+        p = self.x_train.shape[0]
+        n = self.x_train.shape[1]
+
         self.params = get_params(p, n, corr_g)
         if save:
-            self.save_pickle(KNOCK_DIR, self.file + '_params', self.params)
+            self.save_pickle(KNOCK_DIR, self.NAME + '_' + self.file + '_params', self.params)
 
     def load_x(self, x):
         self.x_train = x
@@ -368,7 +387,7 @@ class DeepKnockOff(KnockOff):
 
     def load_machine(self):
         assert self.params is not None, ValueError('Params cannot be None. Please pass in params or run pre-process()')
-        checkpoint_name = join(KNOCK_DIR, self.file)
+        checkpoint_name = join(KNOCK_DIR, self.NAME + '_' + self.file)
         self.generator = KnockoffMachine(self.params)
         self.generator.load(checkpoint_name)
 
@@ -380,13 +399,14 @@ class DeepKnockOff(KnockOff):
 
         x = self.check_data(x, transpose=True)
 
-        checkpoint_name = join(KNOCK_DIR, self.file)
+        checkpoint_name = join(KNOCK_DIR, self.NAME + '_' + self.file)
         # Where to print progress information
-        logs_name = join(KNOCK_DIR, self.file + "_progress.txt")
+        logs_name = join(KNOCK_DIR, self.NAME + '_' + self.file + "_progress.txt")
         # Initialize the machine
         self.generator = KnockoffMachine(self.params, checkpoint_name=checkpoint_name, logs_name=logs_name)
         # Train the machine
         print("Fitting the knockoff machine...")
+
         self.generator.train(x)
         return self.generator
 
