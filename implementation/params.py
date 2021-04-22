@@ -7,7 +7,7 @@ def get_params(p, n, n_corr):
     # Set the parameters for training deep knockoffs
     pars = dict()
     # Number of epochs
-    pars['epochs'] = 5
+    pars['epochs'] = 10
     # Number of iterations over the full data per epoch
     pars['epoch_length'] = 100
     # data type, either "continuous" or "binary"
@@ -27,9 +27,9 @@ def get_params(p, n, n_corr):
     # Penalty for the MMD distance
     pars['GAMMA'] = 1.0
     # Penalty encouraging second-order knockoffs
-    pars['LAMBDA'] = 0.1
+    pars['LAMBDA'] = 0.01
     # Decorrelation penalty hyperparameter
-    pars['DELTA'] = 0.1
+    pars['DELTA'] = 0.01
     # Target pairwise correlations between variables and knockoffs
     pars['target_corr'] = n_corr
     # Kernel widths for the MMD measure (uniform weights)
