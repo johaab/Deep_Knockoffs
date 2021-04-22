@@ -27,54 +27,54 @@ This project was led as part of the Master in [Computational Biology and Bioinfo
 
 ## Installation guide
 
- `pip3 install -r requirements.txt
-  pip3 install fanok
-  cd deepknockoffs/
-  pip3 install DeepKnockoffs/
-  pip3 install torch-two-sample-master/`
+	pip3 install -r requirements.txt
+	pip3 install fanok
+	cd deepknockoffs/
+	pip3 install DeepKnockoffs/
+	pip3 install torch-two-sample-master/
 
 ## File structure
-Project
-|
-|-- data
-|   |-- input
-|		|-- Glasser360_2mm_codebook.mat
-|		|-- hrf.mat
-|		|-- TaskParadigms
-|		|-- X_tfMRI_EMOTION_LR_Glasser360.mat
-|		|-- X_tfMRI_GAMBLING_LR_Glasser360.mat
-|		|-- X_tfMRI_LANGUAGE_LR_Glasser360.mat
-|		|-- X_tfMRI_MOTOR_LR_Glasser360.mat
-|		|-- X_tfMRI_RELATIONAL_LR_Glasser360.mat
-|		|-- X_tfMRI_SOCIAL_LR_Glasser360.mat
-|		|-- X_tfMRI_WM_LR_Glasser360.mat
-|   |-- output
-|       |-- beta
-|       |-- img
-|       |-- knockoffs
-|		|-- pearsonr
-|
-|-- deepknockoffs/
-|    |-- torch-two-sample-master/
-|
-|-- implementation
-|    |-- __init__.py
-|    |-- glm.py
-|    |-- knockoff_class.py
-|    |-- load.py
-|    |-- non_parametric.py
-|    |-- params.py
-|    |-- utils.py 
-|
-|-- PlotGraph/
-|
-|-- group_analysis.py
-|-- plot_correlation.py
-|-- plot_test_individual.py
-|
-|-- .gitignore
-|-- __init__.py
-|-- README.md
+	Project
+	|
+	|-- data
+	|   |-- input
+	|		|-- Glasser360_2mm_codebook.mat
+	|		|-- hrf.mat
+	|		|-- TaskParadigms
+	|		|-- X_tfMRI_EMOTION_LR_Glasser360.mat
+	|		|-- X_tfMRI_GAMBLING_LR_Glasser360.mat
+	|		|-- X_tfMRI_LANGUAGE_LR_Glasser360.mat
+	|		|-- X_tfMRI_MOTOR_LR_Glasser360.mat
+	|		|-- X_tfMRI_RELATIONAL_LR_Glasser360.mat
+	|		|-- X_tfMRI_SOCIAL_LR_Glasser360.mat
+	|		|-- X_tfMRI_WM_LR_Glasser360.mat
+	|   |-- output
+	|       |-- beta
+	|       |-- img
+	|       |-- knockoffs
+	|		|-- pearsonr
+	|
+	|-- deepknockoffs/
+	|    |-- torch-two-sample-master/
+	|
+	|-- implementation
+	|    |-- __init__.py
+	|    |-- glm.py
+	|    |-- knockoff_class.py
+	|    |-- load.py
+	|    |-- non_parametric.py
+	|    |-- params.py
+	|    |-- utils.py 
+	|
+	|-- PlotGraph/
+	|
+	|-- group_analysis.py
+	|-- plot_correlation.py
+	|-- plot_test_individual.py
+	|
+	|-- .gitignore
+	|-- __init__.py
+	|-- README.md
 
 
 ## Authors
