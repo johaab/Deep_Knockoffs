@@ -14,4 +14,4 @@ Student: [Jonathan Haab](https://www.linkedin.com/in/jonathan-haab/)
 
 Supervisor: [Dr. Maria Giulia Preti](https://miplab.epfl.ch/index.php/people/preti)
 
-Built on the work of Alec Flowers, Alexander Glavackij and Janet van der Graaf [(code available here)](https://gitlab.com/aglavac/machine-learning-cs433-p2/-/tree/master) and the original [Deep Knockoffs implementation](https://github.com/msesia/deepknockoffs)
+Built on the work of Alec Flowers, Alexander Glavackij and Janet van der Graaf (code available [here])(https://gitlab.com/aglavac/machine-learning-cs433-p2/-/tree/master) and the original [Deep Knockoffs implementation](https://github.com/msesia/deepknockoffs)
