@@ -1,1 +1,9 @@
-The input data were omitted for the sake of space. Please contact the authors if you're interested having access to them.
+The following input data were omitted for the sake of space. Please contact the authors if you're interested in getting access to them.
+
+- X_tfMRI_EMOTION_LR_Glasser360.mat
+- X_tfMRI_GAMBLING_LR_Glasser360.mat
+- X_tfMRI_LANGUAGE_LR_Glasser360.mat
+- X_tfMRI_MOTOR_LR_Glasser360.mat
+- X_tfMRI_RELATIONAL_LR_Glasser360.mat
+- X_tfMRI_SOCIAL_LR_Glasser360.mat
+- X_tfMRI_WM_LR_Glasser360.mat
