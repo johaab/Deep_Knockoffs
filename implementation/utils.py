@@ -21,7 +21,8 @@ IMG_DIR = (OUTPUT_DIR / "img").absolute().resolve()
 assert (IMG_DIR.exists())
 BETA_DIR = (OUTPUT_DIR / "beta").absolute().resolve()
 assert (BETA_DIR.exists())
-
+PEARSONR_DIR = (OUTPUT_DIR / "pearsonr").absolute().resolve()
+assert (PEARSONR_DIR.exists())
 
 def plot_goodness_of_fit(results, metric, title, name, swap_equals_self=False, save_img=True):
     """Plots Goodness Of Fit"""
